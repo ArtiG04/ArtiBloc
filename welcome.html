@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>PyroPrev — Bloc</title>
+  <style>
+    :root{--bg:#f6f9fb;--card:#ffffff;--ink:#0b2431;--muted:#5f6b76;--accent:#ff6b6b;--accent2:#1b98e0}
+    body{margin:0;font-family:Inter,Segoe UI,Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#eaf6ff,#f6f9fb);color:var(--ink);-webkit-font-smoothing:antialiased}
+    header{background:linear-gradient(90deg,#0f2740 0%, #123a54 100%);color:white;padding:18px 20px;display:flex;align-items:center;gap:18px}
+    .brand{display:flex;flex-direction:column}
+    .brand h2{margin:0;font-size:18px}
+    .brand p{margin:0;font-size:12px;opacity:0.9}
+    .container{max-width:980px;margin:22px auto;padding:0 16px}
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 6px 20px rgba(16,32,40,0.06)}
+    .title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    h3{margin:0;font-size:16px}
+    p.lead{color:var(--muted);margin:6px 0 14px}
+    .accordion{border-radius:8px;overflow:hidden}
+    .acc-item{border-bottom:1px solid #eef3f7}
+    .acc-header{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;cursor:pointer;background:linear-gradient(90deg,rgba(27,152,224,0.03),transparent)}
+    .acc-body{padding:14px;border-top:1px solid #f3f7fa;background:linear-gradient(180deg,#fff,#fafcff)}
+    .small{font-size:13px;color:var(--muted);line-height:1.5}
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:#f1fbff;color:var(--accent2);font-weight:600;font-size:12px;margin-right:8px}
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:var(--accent);color:white;text-decoration:none;font-weight:700}
+    .right .stat{display:flex;flex-direction:column;gap:6px}
+    .stat .num{font-size:20px;font-weight:700}
+    pre {white-space:pre-wrap;word-wrap:break-word;background:#0b1220;color:#dbefff;padding:12px;border-radius:8px;overflow:auto}
+    a.link{color:var(--accent2);text-decoration:none}
+    footer{max-width:980px;margin:18px auto;color:var(--muted);font-size:13px;text-align:center}
+    @media (max-width:800px){.grid{grid-template-columns:1fr}.right{order:2}}
+  </style>
+</head>
+<body>
+  <header>
+    <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#ff8f6b,#ff6b6b);display:flex;align-items:center;justify-content:center;font-weight:800;color:white">PP</div>
+    <div class="brand">
+      <h2>PyroPrev — Bloc de proyecto</h2>
+      <p>Dispositivo de prevención de incendios · Resumen del proyecto</p>
+    </div>
+    <div style="margin-left:auto">
+      <a href="/logout" style="color:white;text-decoration:none;font-weight:700">Cerrar sesión</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="grid">
+      <div class="card">
+        <div class="title">
+          <div>
+            <h3>Descripción general</h3>
+            <p class="lead">PyroPrev es un dispositivo pensado para la detección preventiva de incendios forestales, usando sensores de humedad, temperatura y humo, y comunicación LoRa para formar redes de detección.</p>
+          </div>
+          <div style="text-align:right">
+            <span class="chip">LoRa</span><span class="chip">ESP32</span>
+            <div style="margin-top:8px"><a class="btn" href="#bloc">Ver bloc</a></div>
+          </div>
+        </div>
+
+        <div id="bloc" class="accordion">
+          <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(0)"><strong>1 · Descripción del proyecto</strong><span id="ic0">+</span></div>
+            <div class="acc-body" id="acc0" style="display:none">
+              <p class="small">PyroPrev detecta de forma preventiva incendios forestales mediante sensores de humedad, temperatura y humo. Los dispositivos se comunican entre ellos por LoRa para crear una red que pueda retransmitir la alarma hasta un punto de control con personas cualificadas.</p>
+              <p class="small">Cada dispositivo tiene un identificador y su ubicación GPS, y en caso de detección envía mediciones y coordenadas. La red repite la senal hasta llegar a las autoridades.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(1)"><strong>2 · Problemas potenciales</strong><span id="ic1">+</span></div>
+            <div class="acc-body" id="acc1" style="display:none">
+              <p class="small"><strong>Problema principal 1:</strong> Suministro de energía — opciones: panel solar + baterías (mantenimiento, visibilidad), baterías (coste/recambio), investigación en generación bioeléctrica desde el propio árbol.</p>
+              <p class="small"><strong>Problema 2:</strong> Alcance de detección — la altura y orientación de los sensores afectan el rango efectivo.</p>
+              <p class="small"><strong>Problema 3:</strong> Alcance de transmisión LoRa — antena en copa mejora el alcance; doble antena y antenas de ganancia podrían ayudar.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(2)"><strong>3 · Mejoras y soluciones futuras</strong><span id="ic2">+</span></div>
+            <div class="acc-body" id="acc2" style="display:none">
+              <p class="small">Investigar suministro por electrodos en el árbol, usar sensores más sensibles o distribuir sensores por ramas (compromiso tamano/fiabilidad). Anadir anemómetro para medir viento (clave en expansión de incendios). Crear un punto de control con mapa interactivo para visualizar dispositivos en tiempo real.</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(3)"><strong>4 · Piezas y presupuestos</strong><span id="ic3">+</span></div>
+            <div class="acc-body" id="acc3" style="display:none">
+              <p class="small"><strong>Resumen de componentes (ejemplo):</strong></p>
+              <ul class="small">
+                <li>ESP32 WROOM-32D</li>
+                <li>Módulo LoRa SX1278 (433MHz)</li>
+                <li>Sensor temp/humedad AM2302 / SHT40</li>
+                <li>Sensor humo MQ-2</li>
+                <li>Baterías Li-ion, panel solar, electrodos Cu/Zn (I+D)</li>
+              </ul>
+              <p class="small">En el PDF hay un presupuesto detallado y compras realizadas para prototipos. (Ver documento original para cifras exactas.)</p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(4)"><strong>5 · Pines y conexiones (resumen)</strong><span id="ic4">+</span></div>
+            <div class="acc-body" id="acc4" style="display:none">
+              <p class="small"><strong>Conexiones clave:</strong></p>
+              <pre>
+LoRa SX1278 (SPI):
+  MOSI -> GPIO23
+  MISO -> GPIO19
+  SCK  -> GPIO18
+  NSS  -> GPIO5
+  RESET-> GPIO14
+  DIO0 -> GPIO26
+
+MQ-2:
+  AOUT -> GPIO34 (ADC)
+
+DHT/DHT11:
+  DATA -> GPIO4 (pull-up)
+
+GPS NEO-6M (opcional):
+  RX/TX -> Serial2 (GPIO16/17)
+
+Botón: GPIO13 (INPUT_PULLUP)
+              </pre>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(5)"><strong>6 · Monitorización</strong><span id="ic5">+</span></div>
+            <div class="acc-body" id="acc5" style="display:none">
+              <p class="small">Existe una página de monitorización asociada en el proyecto que muestra gráficas en tiempo real y permite calibraciones: <a class="link" href="https://artig04.github.io/PyroPrev_info/" target="_blank">https://artig04.github.io/PyroPrev_info/</a></p>
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <div class="acc-header" onclick="toggleAcc(6)"><strong>Nota legal / uso</strong><span id="ic6">+</span></div>
+            <div class="acc-body" id="acc6" style="display:none">
+              <p class="small">Este contenido proviene del documento del proyecto PyroPrev que has subido. Puedes ver el PDF completo en la instancia que uses para almacenamiento. Para producción, asegúrate de implementar autenticación segura y cifrado.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card right">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <h3>Acciones rápidas</h3>
+            <p class="small">Enlaces y utilidades del proyecto.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <a class="btn" href="/logout">Cerrar sesión</a>
+          <div style="height:12px"></div>
+          <a class="link" href="https://artig04.github.io/PyroPrev_info/" target="_blank">Página de monitorización</a>
+          <div style="height:12px"></div>
+          <a class="link" href="/rawdoc">Ver texto completo (PDF)</a>
+        </div>
+
+        <div style="margin-top:18px">
+          <h4 style="margin:0 0 8px">Contacto</h4>
+          <p class="small">Proyecto: ARTISA TECHNOLOGIES — PyroPrev</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Contenido basado en el PDF subido por el usuario. (Resumen en la página.)</footer>
+
+  <script>
+    function toggleAcc(i){
+      var body = document.getElementById('acc'+i);
+      var ic = document.getElementById('ic'+i);
+      if(!body) return;
+      if(body.style.display === 'none' || body.style.display === ''){
+        body.style.display = 'block';
+        ic.textContent = '−';
+      } else {
+        body.style.display = 'none';
+        ic.textContent = '+';
+      }
+    }
+    // abrir primer bloque por defecto
+    toggleAcc(0);
+  </script>
+</body>
+</html>
