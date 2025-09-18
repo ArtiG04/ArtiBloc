@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mi ESP32 — Acceso</title>
+<style>
+  body{font-family:Inter,Arial,sans-serif;background:linear-gradient(180deg,#eef7ff,#ffffff);margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center}
+  .card{max-width:720px;padding:28px;border-radius:14px;background:#fff;box-shadow:0 10px 30px rgba(12,38,63,0.08);text-align:center}
+  h1{margin:0 0 8px;color:#0b3b5a}
+  p{color:#43677b;margin:8px 0 16px}
+  .btn{display:inline-block;padding:10px 16px;border-radius:10px;background:#1b98e0;color:#fff;text-decoration:none;font-weight:700}
+  .muted{font-size:13px;color:#7b98a7;margin-top:12px}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Acceder a mi ESP32</h1>
+    <p>Serás redirigido al dispositivo. Si no ocurre, pulsa el botón.</p>
+
+    <!-- Cambia la URL en href y en JS más abajo -->
+    <a id="openBtn" class="btn" href="https://motorcycle-issued-disabilities-detroit.trycloudflare.com/login" target="_blank" rel="noopener">Abrir dispositivo</a>
+    <p class="muted">Redirigiendo en <span id="count">3</span> segundos — URL: <br><a id="urlText" href="https://tu-trycloudflare-url.trycloudflare.com" target="_blank">https://tu-trycloudflare-url.trycloudflare.com</a></p>
+  </div>
+
+<script>
+  // reemplaza la URL aquí también si lo prefieres de forma centralizada:
+  const target = "https://tu-trycloudflare-url.trycloudflare.com";
+
+  // contador y redirección automática
+  let t = 3;
+  const span = document.getElementById('count');
+  const urlText = document.getElementById('urlText');
+  const openBtn = document.getElementById('openBtn');
+  urlText.href = target;
+  openBtn.href = target;
+
+  const iv = setInterval(()=> {
+    t--;
+    span.textContent = t;
+    if (t <= 0) {
+      clearInterval(iv);
+      // abrir en la misma pestaña:
+      window.location.replace(target);
+      // o abrir en nueva pestaña: window.open(target, '_blank');
+    }
+  }, 1000);
+</script>
+</body>
+</html>
