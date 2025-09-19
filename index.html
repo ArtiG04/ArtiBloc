@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PyroPrev — Documento</title>
+<link rel="icon" href="data:,">
+<style>
+  :root{
+    --bg:#f4fbff; --card:#ffffff; --muted:#6b7d88; --ink:#072033;
+    --accent:#1b98e0; --accent-2:#ff6b6b; --glass: rgba(11,36,49,0.04);
+    --maxw:1100px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#f0fbff,#ffffff);color:var(--ink);-webkit-font-smoothing:antialiased}
+  header{background:linear-gradient(90deg,#08324a 0%, #0f4d66 100%);color:white;padding:18px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 6px 18px rgba(10,30,45,0.08)}
+  .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent-2),#ff8f6b);display:flex;align-items:center;justify-content:center;font-weight:800;color:white}
+  .brand h1{margin:0;font-size:18px}
+  .brand p{margin:0;font-size:13px;opacity:0.9}
+  .wrap{max-width:var(--maxw);margin:22px auto;padding:0 16px;display:grid;grid-template-columns:320px 1fr;gap:18px}
+  /* Sidebar / TOC */
+  .toc{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 8px 30px rgba(8,32,48,0.06);position:sticky;top:22px;height:calc(100vh - 44px);overflow:auto}
+  .toc h2{margin:0 0 8px;font-size:16px}
+  .search{display:flex;gap:8px;margin-bottom:10px}
+  .search input{flex:1;padding:8px;border-radius:8px;border:1px solid #e6f3fb;background:var(--glass)}
+  .toc a.item{display:block;padding:8px;border-radius:8px;color:var(--ink);text-decoration:none;margin:6px 0}
+  .toc a.item:hover{background:linear-gradient(90deg,var(--glass),transparent)}
+  .download{display:flex;gap:8px;margin-top:12px}
+  .btn{display:inline-block;padding:8px 12px;border-radius:10px;background:var(--accent);color:white;text-decoration:none;font-weight:700}
+  .muted{color:var(--muted);font-size:13px}
+
+  /* Main content */
+  .main{display:flex;flex-direction:column;gap:18px}
+  .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 8px 30px rgba(8,32,48,0.06)}
+  .pdf-view{height:480px;border-radius:8px;overflow:hidden;border:1px solid #eef7fb}
+  .meta{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .grid-sections{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .section h3{margin:0 0 8px}
+  .section p{color:var(--muted);line-height:1.5;margin:0 0 8px}
+  .accordion .acc-item{border-top:1px solid #eef6fb;padding:10px 0}
+  .acc-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+  .acc-body{padding:12px 0;color:var(--muted)}
+  pre{background:#071022;color:#dbefff;padding:12px;border-radius:8px;overflow:auto;font-size:13px}
+
+  footer{max-width:var(--maxw);margin:12px auto 40px;padding:0 16px;color:var(--muted);font-size:13px;text-align:center}
+
+  /* Responsive */
+  @media (max-width:960px){
+    .wrap{grid-template-columns:1fr;gap:12px}
+    .toc{position:relative;height:auto}
+    .pdf-view{height:360px}
+    .grid-sections{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">PP</div>
+    <div class="brand">
+      <h1>PyroPrev — Documento</h1>
+      <p>Visor interactivo del proyecto de prevención de incendios</p>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <!-- SIDEBAR / TOC -->
+    <aside class="toc" aria-label="Índice del documento">
+      <h2>Índice</h2>
+      <div class="search">
+        <input id="searchBox" placeholder="Buscar en secciones..." />
+        <button id="clearBtn" title="Limpiar">✕</button>
+      </div>
+
+      <nav id="tocList">
+        <a class="item" href="#pdf">Ver PDF</a>
+        <a class="item" href="#desc">1 · Descripción</a>
+        <a class="item" href="#problemas">2 · Problemas</a>
+        <a class="item" href="#mejoras">3 · Mejoras</a>
+        <a class="item" href="#piezas">4 · Piezas y presupuesto</a>
+        <a class="item" href="#pines">5 · Pines y conexiones</a>
+        <a class="item" href="#monitor">6 · Monitorización</a>
+      </nav>
+
+      <div class="download">
+        <a id="openPdf" class="btn" href="#" target="_blank" rel="noopener">Abrir PDF</a>
+        <a id="dlPdf" class="btn" href="#" style="background:var(--accent-2)">Descargar</a>
+      </div>
+
+      <p class="muted" style="margin-top:12px">Fuente original: <br><strong>Fire Prevention (1).pdf</strong>. :contentReference[oaicite:1]{index=1}</p>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- PDF viewer -->
+      <div id="pdf" class="card">
+        <div class="meta">
+          <div>
+            <h2 style="margin:0">Documento: Fire Prevention — PyroPrev</h2>
+            <p class="muted" style="margin-top:6px">Resumen interactivo y visor del PDF. Desplázate por las secciones o usa el índice a la izquierda.</p>
+          </div>
+          <div class="muted">Tamaño: ~PDF</div>
+        </div>
+
+        <div class="pdf-view" style="margin-top:12px">
+          <!-- El src se ajusta en el script: pdfPath -->
+          <iframe id="pdfFrame" src="" width="100%" height="100%" style="border:0"></iframe>
+        </div>
+      </div>
+
+      <!-- CONTENT SECTIONS -->
+      <div class="grid-sections">
+        <section id="desc" class="card section">
+          <h3>1 · Descripción del proyecto</h3>
+          <p>PyroPrev es un dispositivo que detecta de forma preventiva incendios forestales usando detectores de humedad, temperatura y humo. Los nodos forman una red LoRa para retransmitir alertas hasta un punto de control, incluyendo posición GPS y datos de sensores.</p>
+          <div class="accordion" id="accDesc">
+            <div class="acc-item">
+              <div class="acc-header" onclick="toggle(this)"><strong>Leer más</strong><span>+</span></div>
+              <div class="acc-body" style="display:none">
+                <p class="small">La red permite cubrir grandes áreas y repetir señales sin depender de cobertura celular. Cada dispositivo envía mediciones y su localización; la red repite la señal hasta llegar a autoridades para una respuesta rápida.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="problemas" class="card section">
+          <h3>2 · Problemas potenciales</h3>
+          <p>Los principales retos son la alimentación de energía, alcance de detección y alcance de transmisión. Se evalúan paneles solares, baterías y posibles soluciones de generación bioeléctrica.</p>
+          <ul style="color:var(--muted);margin-top:8px">
+            <li><strong>Energía:</strong> panel solar vs baterías vs I+D en electrodos en árbol.</li>
+            <li><strong>Detección:</strong> altura y orientación del sensor afectan rango.</li>
+            <li><strong>Transmisión:</strong> antena y ganancia afectan alcance LoRa.</li>
+          </ul>
+        </section>
+
+        <section id="mejoras" class="card section">
+          <h3>3 · Mejoras y soluciones futuras</h3>
+          <p>Investigar suministro por electrodos, añadir anemómetro para medir viento, usar doble antena y mapas interactivos en el punto de control para monitorización en tiempo real.</p>
+        </section>
+
+        <section id="piezas" class="card section">
+          <h3>4 · Piezas, presupuesto y compras</h3>
+          <p class="muted">Resumen de componentes y gastos iniciales.</p>
+          <pre>
+Micro: ESP32 WROOM-32D
+LoRa SX1278 (433MHz)
+Sensor temp/humedad AM2302 (o SHT40)
+Sensor humo MQ-2
+Antena, baterías, panel solar, electrodos Cu/Zn
+Presupuesto inicial: ~35,59€ (más compras posteriores)
+          </pre>
+        </section>
+
+        <section id="pines" class="card section">
+          <h3>5 · Pines y conexiones</h3>
+          <p class="muted">Esquema de conexiones resumen (ajustar según placa)</p>
+          <pre>
+LoRa (SPI):
+ MOSI -> GPIO23
+ MISO -> GPIO19
+ SCK  -> GPIO18
+ NSS  -> GPIO5
+ RESET-> GPIO14
+ DIO0 -> GPIO26
+
+MQ-2: AOUT -> GPIO34 (ADC)
+DHT: DATA -> GPIO4
+GPS: RX/TX -> GPIO16/17 (Serial2)
+          </pre>
+        </section>
+
+        <section id="monitor" class="card section">
+          <h3>6 · Monitorización</h3>
+          <p class="muted">Página de monitorización asociada: <a href="https://artig04.github.io/PyroPrev_info/" target="_blank">artig04.github.io/PyroPrev_info/</a></p>
+        </section>
+      </div>
+
+      <!-- extra: texto completo / nota -->
+      <div class="card">
+        <h3>Texto completo (resumen)</h3>
+        <p class="muted">Este visor incluye los puntos clave extraídos del PDF. Si necesitas servir el PDF directamente desde un ESP32, puedo darte el código para cargarlo en SPIFFS / LittleFS y exponerlo en `/document.pdf`.</p>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    © PyroPrev — Visualizador. Documento original subido por el usuario. :contentReference[oaicite:2]{index=2}
+  </footer>
+
+<script>
+  // Ruta al PDF: si pones el html y el PDF en la misma carpeta, deja el nombre tal cual.
+  const pdfPath = "Fire Prevention (1).pdf";
+
+  // Inicialización del visor y enlaces
+  document.getElementById('pdfFrame').src = pdfPath;
+  document.getElementById('openPdf').href = pdfPath;
+  document.getElementById('dlPdf').href = pdfPath;
+
+  // TOC smooth scroll
+  document.querySelectorAll('.toc a.item').forEach(a=>{
+    a.addEventListener('click', e=>{
+      if(a.hash){
+        e.preventDefault();
+        const el = document.querySelector(a.hash);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+
+  // Acordeones
+  function toggle(el){
+    const body = el.nextElementSibling;
+    if(!body) return;
+    const open = body.style.display !== 'none' && body.style.display !== '';
+    body.style.display = open ? 'none' : 'block';
+    const sign = el.querySelector('span');
+    if(sign) sign.textContent = open ? '+' : '−';
+  }
+
+  // Simple search: oculta TOC items not matching (busca en el texto de sección)
+  const searchBox = document.getElementById('searchBox');
+  const clearBtn = document.getElementById('clearBtn');
+  const tocList = document.getElementById('tocList');
+
+  searchBox.addEventListener('input', ()=>{
+    const q = searchBox.value.trim().toLowerCase();
+    const items = tocList.querySelectorAll('a.item');
+    items.forEach(it=>{
+      const id = it.getAttribute('href').replace('#','');
+      const sec = document.getElementById(id);
+      if(!sec){ it.style.display = q ? 'none' : 'block'; return; }
+      const text = sec.innerText.toLowerCase();
+      it.style.display = text.includes(q) ? 'block' : 'none';
+    });
+  });
+  clearBtn.addEventListener('click', ()=>{ searchBox.value=''; searchBox.dispatchEvent(new Event('input')); });
+
+  // Small enhancement: highlight fragment if URL ends with #section
+  window.addEventListener('load', ()=>{
+    if(location.hash){
+      setTimeout(()=>{ const el=document.querySelector(location.hash); if(el) el.scrollIntoView({behavior:'smooth'}); },250);
+    }
+  });
+</script>
+</body>
+</html>
